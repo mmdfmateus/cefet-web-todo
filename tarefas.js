@@ -17,6 +17,11 @@ const insereTarefaNaPagina = (tarefa) => {
   const newItem = document.createElement('li');
   newItem.classList.add('item-tarefa');
   newItem.innerText = tarefa.nome;
+  if(tarefa.realizada){
+    newItem.classList.add('marcado');
+  } else {
+    newItem.classList.remove('marcado');
+  }
   
   listaEl.appendChild(newItem);
 }
@@ -29,15 +34,6 @@ const populaTarefasExistentes = () => {
     insereTarefaNaPagina(item);
   }
 }
-
-const addButton = document.getElementById('incluir-nova-tarefa');
-addButton.addEventListener('click', handleTaskAdd);
-
-document.addEventListener('keypress', (ev) => {
-  if(ev.key == 'Enter'){
-    handleTaskAdd();
-  }
-});
 
 const handleTaskAdd = () => {
   const input = document.querySelector('#nova-tarefa-nome');
@@ -59,4 +55,19 @@ const handleTaskAdd = () => {
 const addButton = document.getElementById('incluir-nova-tarefa');
 addButton.addEventListener('click', handleTaskAdd);
 
+document.addEventListener('keypress', (ev) => {
+  if(ev.key == 'Enter'){
+    handleTaskAdd();
+  }
+});
+
 populaTarefasExistentes();
+
+const itemTarefa = document.getElementsByClassName('item-tarefa');
+for(let element of itemTarefa) {
+  console.log(element);
+  element.addEventListener('click', (ev) => {
+    ev.target.classList.toggle('marcado');
+    console.log(ev.target);
+  });
+};
