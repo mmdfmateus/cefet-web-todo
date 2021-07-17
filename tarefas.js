@@ -26,13 +26,11 @@ const populaTarefasExistentes = () => {
   listaEl.innerHTML = '';
   
   for(let item of tarefas){
-    console.log(item);
     insereTarefaNaPagina(item);
   }
 }
 
-const addButton = document.getElementById('incluir-nova-tarefa');
-addButton.addEventListener('click', (ev) => {
+const handleTaskAdd = () => {
   const input = document.querySelector('#nova-tarefa-nome');
   const category = document.querySelector('#nova-tarefa-categoria');
   
@@ -47,6 +45,29 @@ addButton.addEventListener('click', (ev) => {
 
   input.value = '';
   input.focus();
+}
+
+const addButton = document.getElementById('incluir-nova-tarefa');
+addButton.addEventListener('click', handleTaskAdd);
+
+document.addEventListener('keypress', (ev) => {
+  if(ev.key == 'Enter'){
+    handleTaskAdd();
+  }
 });
+
+// const categoria = document.getElementById('filtro-de-categoria');
+// categoria.addEventListener('change', (ev) => {
+//   let listaEl = document.getElementById('lista-tarefas');
+  
+//   for(let child of listaEl.children){
+//     console.log(child.value, ev.target.value);
+//     console.log(listaEl.children.indexOf(child));
+//     if(child.value == ev.target.value){
+//       child.classList.add('retido-no-filtro')
+//     }
+//   }
+
+// });
 
 populaTarefasExistentes();
